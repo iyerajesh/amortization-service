@@ -8,10 +8,11 @@ spring:
     contact-email: iyerajesh@gmail.com
     version: 1.0
 
-management:
-  health:
-    probes:
-      enabled: true
 logging:
   level:
     root: INFO
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
