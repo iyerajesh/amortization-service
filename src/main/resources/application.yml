@@ -1,0 +1,17 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: amortization-service
+    description: Spring boot service, which exposes a API to return the amortization schedule for a given request.
+    contact-name: Rajesh Iyer
+    contact-email: iyerajesh@gmail.com
+    version: 1.0
+
+management:
+  health:
+    probes:
+      enabled: true
+logging:
+  level:
+    root: INFO
