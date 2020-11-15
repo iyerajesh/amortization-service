@@ -1,5 +1,6 @@
 package com.xylia.domain.payments.amortization.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.io.IOException;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -72,5 +74,17 @@ public class AmortizationRequestTest {
 
         assertThat(validationErrors.stream().anyMatch(error -> error.getMessage()
                 .equals("The interest rate must be a positive value!"))).isTrue();
+    }
+
+    @Test
+    public void deserializeAmortizationRequest() throws IOException {
+
+        String jsonRequest = "{\"loanAmount\":10000,\"loanTerm\":10,\"interestRate\":2.5}";
+
+        AmortizationRequest amortizationRequest = new ObjectMapper().readValue(jsonRequest, AmortizationRequest.class);
+
+        assertThat(amortizationRequest.getInterestRate()).isEqualTo(2.5);
+        assertThat(amortizationRequest.getLoanAmount()).isEqualTo(10000);
+        assertThat(amortizationRequest.getLoanTerm()).isEqualTo(10);
     }
 }
