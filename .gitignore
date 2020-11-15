@@ -7,6 +7,7 @@ HELP.md
 
 ### Gradle ###
 **/build/
+**/out/
 **/.gradle/wrapper/gradle-wrapper.jar
 **/.gradle/
 

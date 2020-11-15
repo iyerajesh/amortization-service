@@ -2,8 +2,10 @@ package com.xylia.domain.payments.amortization.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.hibernate.validator.constraints.Range;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Model object to capture the amortization request data.
@@ -17,14 +19,18 @@ import javax.validation.constraints.NotEmpty;
 public class AmortizationRequest {
 
     @JsonProperty("loanAmount")
-    @NotEmpty
+    @NotNull
+    @Min(value = 0L, message = "The loan amount must be a positive value!")
     private int loanAmount;
 
     @JsonProperty("interestRate")
-    @NotEmpty
+    @NotNull
+    @Min(value = 0L, message = "The interest rate must be a positive value!")
     private double interestRate;
 
     @JsonProperty("loanTerm")
-    @NotEmpty
+    @NotNull
+    @Range(min = 10, max = 30, message
+            = "The loan term should be between 10 and 30 years!")
     private int loanTerm;
 }
