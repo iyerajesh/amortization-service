@@ -13,11 +13,21 @@ import java.util.Set;
 import static java.lang.Double.valueOf;
 import static org.apache.commons.math3.util.Precision.round;
 
+/**
+ * Service class, which is responsible for computing the amortization details, and populating the
+ * AmortizationLineItem objects.
+ */
+
 @Service
 public class AmortizationScheduleService {
 
     private static DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
+    /**
+     *  Computes the Amortization Schedule, based on the Amortization request recieved.
+     * @param amortizationRequest The Amortization request object.
+     * @return List<AmortizationLineItem> returns a schedule list of amortization line items by month.
+     */
     public final List<AmortizedDataLineItem> computeAmortizationSchedule(AmortizationRequest amortizationRequest) {
 
         List<AmortizedDataLineItem> amortizedDataLineItemList = Lists.newArrayList();
