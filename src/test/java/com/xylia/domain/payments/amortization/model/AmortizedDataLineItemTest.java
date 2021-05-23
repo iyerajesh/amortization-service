@@ -9,6 +9,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
 @ExtendWith(SpringExtension.class)
 public class AmortizedDataLineItemTest {
 
@@ -26,14 +27,12 @@ public class AmortizedDataLineItemTest {
                 .build();
     }
 
-
     @Test
     public void testIfJsonPropertiesAreCorrectlyMapped() throws JsonProcessingException {
 
         String lineItemString = MAPPER.writeValueAsString(amortizedDataLineItem);
-        assertThat(lineItemString).
-                containsSequence("{\"month\":1,\"starting-balance\":0.0,\"fixed-payment\":250.0,\"principal-payment\":750.0,\"" +
-                        "interest-payment\":100.0,\"ending-balance\":750.0,\"total-interest\":0.0}");
+        assertThat(lineItemString)
+                .isEqualTo("{\"month\":1,\"starting-balance\":0.0,\"fixed-payment\":250.0,\"principal-payment\":750.0,\"interest-payment\":100.0,\"ending-balance\":750.0,\"total-interest\":0.0}");
     }
 
 }

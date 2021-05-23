@@ -1,7 +1,6 @@
 package com.xylia.domain.payments.amortization.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +15,32 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//@ExtendWith(SpringExtension.class)
+//public class AmortizationRequestTest {
+//
+//    private ValidatorFactory validatorFactory;
+//    private Validator validator;
+//
+//    @BeforeEach
+//    public void setUp() {
+//        validatorFactory = Validation.buildDefaultValidatorFactory();
+//        validator = validatorFactory.getValidator();
+//    }
+//
+//    @Test
+//    public void validateIfLoanTermIsInAcceptableRangeWithOutsideRange() {
+//        AmortizationRequest amortizationRequest = AmortizationRequest.builder()
+//                .loanTerm(9)
+//                .build();
+//        Set<ConstraintViolation<AmortizationRequest>> validationErrors = validator
+//                .validate(amortizationRequest);
+//
+//        assertThat(validationErrors.stream().anyMatch(error -> error.getMessage()
+//                .equals("The loan term should be between 10 and 30 years!"))).isTrue();
+//    }
+//
+
+
 @ExtendWith(SpringExtension.class)
 public class AmortizationRequestTest {
 
@@ -28,27 +53,17 @@ public class AmortizationRequestTest {
         validator = validatorFactory.getValidator();
     }
 
+
     @Test
-    public void validateIfLoanTermIsInAcceptableRangeWithOutsideRange() {
+    public void validateIfLoanTermIsInAcceptableRange() {
+
         AmortizationRequest amortizationRequest = AmortizationRequest.builder()
                 .loanTerm(9)
                 .build();
-        Set<ConstraintViolation<AmortizationRequest>> validationErrors = validator
-                .validate(amortizationRequest);
 
-        assertThat(validationErrors.stream().anyMatch(error -> error.getMessage()
-                .equals("The loan term should be between 10 and 30 years!"))).isTrue();
-    }
+        Set<ConstraintViolation<AmortizationRequest>> constraintViolations = validator.validate(amortizationRequest);
 
-    @Test
-    public void validateIfLoanTermIsInAcceptableWithInsideRange() {
-        AmortizationRequest amortizationRequest = AmortizationRequest.builder()
-                .loanTerm(9)
-                .build();
-        Set<ConstraintViolation<AmortizationRequest>> validationErrors = validator
-                .validate(amortizationRequest);
-
-        assertThat(validationErrors.stream().anyMatch(error -> error.getMessage()
+        assertThat(constraintViolations.stream().anyMatch(violation -> violation.getMessage()
                 .equals("The loan term should be between 10 and 30 years!"))).isTrue();
     }
 

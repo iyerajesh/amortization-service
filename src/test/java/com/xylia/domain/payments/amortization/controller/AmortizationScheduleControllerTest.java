@@ -24,12 +24,11 @@ public class AmortizationScheduleControllerTest {
 
     @Test
     public void whenValidInput_thenReturns200() throws Exception {
-        mvc.perform(MockMvcRequestBuilders
-                .post("/payments/amortization/schedule")
+        mvc.perform(MockMvcRequestBuilders.post("/payments/amortization/schedule")
                 .content(MAPPER.writeValueAsString(AmortizationRequest.builder()
                         .loanAmount(10000)
-                        .interestRate(2.5)
                         .loanTerm(10)
+                        .interestRate(2.5)
                         .build()))
 
                 .contentType(MediaType.APPLICATION_JSON)
@@ -38,10 +37,10 @@ public class AmortizationScheduleControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].starting-balance").exists());
     }
 
+
     @Test
-    public void readinessProbe_Returns200() throws Exception {
-        mvc.perform(MockMvcRequestBuilders
-                .get("/actuator/health/readiness")
+    public void readinessProbe_returns200() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/actuator/health/readiness")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -49,13 +48,12 @@ public class AmortizationScheduleControllerTest {
     }
 
     @Test
-    public void livenessProbe_Returns200() throws Exception {
+    public void liveNessProbe_Returns200() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                 .get("/actuator/health/liveness")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status").isNotEmpty());
-
     }
 }
